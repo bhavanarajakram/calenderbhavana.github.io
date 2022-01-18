@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calendar</title>
+	<style type="text/css">
+	body{
+		margin: 0;
+		font-family: "Lato","sans-serif";
+	}
+	*{
+		margin: 0;
+		box-sizing: border-box;
+	}
+	.wrapper{
+		display: flex;
+		width:100vw;
+		height: 100vh;
+		background-color:white;
+
+	}
+	.calender{
+		margin: auto;
+		width: 600px;
+		height: 450px;
+		background-color: #fff;
+		box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.2);
+	}
+	.month{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;;
+		width:100%;
+		text-align: center; 
+		background-color: #2ecc71;
+		color: #fff;
+		padding: 40px 30px;
+	}
+	.weekends{
+		display: flex;
+		background-color: #27ae60;
+		color: #fff;
+		padding: 7px 0;
+	}
+	.weekends div{
+		width: 14.28%;
+		text-align: center;
+
+	}
+	.days {
+		display: flex;
+		flex-wrap: wrap;
+		text-align: center;
+		font-weight: 300;
+		padding: 10px 0;
+	}
+	.days div{
+		
+		margin-bottom: 10px;
+		padding: 10px 0;
+		transition: all 0.4s;
+	}
+	.weekends div,
+	.days div {
+		width: 14.28%;
+		text-align: center;
+	}
+	.days div:hover {
+		background-color: #dfe6e9;
+		cursor: pointer;
+	}
+	.today{
+ 		background-color: #27ae60;
+ 		color: #fff;
+	}
+	.days div{
+		width: 14.28%;
+		text-align: center;
+	}
+	.prev_date{
+		color: #999;
+	}
+	#month{
+		font-size: 30px;
+		font-weight: 500;
+	}
+	.prev{
+		display: flex;
+		justify-content: center;
+		align-items: center;'
+		font-size: 23px;
+		width: 50px;
+		height: 50px;
+		background-color: rgba(0,0,0,0.1);
+		border-radius: 50%;
+	}
+	.next{
+		display: flex;
+		justify-content: center;
+		align-items: center;'
+		font-size: 23px;
+		width: 50px;
+		height: 50px;
+		background-color: rgba(0,0,0,0.1);
+		border-radius: 50%;
+		transition: all 0.4s;
+	}
+	.prev:hover,
+	.next:hover{
+		background-color: rgba(0,0,0,0.2);
+		cursor: pointer;
+	}
+</style>
+</head>
+<body onload="RenderDate()">
+	<div class="wrapper">
+		<div class="calender">
+			<div class="month">
+				<div class="prev" onclick="moveDate('prev')">
+					<span>&#10094</span>
+				</div>
+						<div>
+						<h2 id ="month">April</h2>
+						<p id=  "date_str">Fri April 02 2021</p>
+						</div>
+				<div class ="next" onclick="moveDate('next')">
+					<span>&#10095</span>
+				</div>
+			</div>
+			<div class="weekends">
+				<div>Sun</div>
+				<div>Mon</div>
+				<div>Tue</div>
+				<div>Wed</div>
+				<div>Thu</div>
+				<div>Fri</div>
+				<div>Sat</div>
+			</div>
+			<div class="days">
+				<div class="prev_date">28</div>
+				<div class="prev_date">29</div>
+				<div class="prev_date">30</div>
+				<div class="prev_date">31</div>
+				<div class="prev_date">1</div>
+				<div class="today">2</div>
+				<div>3</div>
+				<div>4</div>
+				<div>5</div>
+				<div>6</div>
+				<div>7</div>
+				<div>8</div>
+				<div>9</div>
+				<div>10</div>
+				<div>11</div>
+				<div>12</div>
+				<div>13</div>
+				<div>14</div>
+				<div>15</div>
+				<div>16</div>
+				<div>17</div>
+				<div>18</div>
+				<div>19</div>
+				<div>20</div>
+				<div>21</div>
+				<div>22</div>
+				<div>23</div>
+				<div>24</div>
+				<div>25</div>
+				<div>26</div>
+				<div>27</div>
+				<div>28</div>
+				<div>29</div>
+				<div>30</div>
+				
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var dt= new Date();
+		function RenderDate(){
+
+		
+	 	dt.setDate (1);
+	 	var day = dt.getDay();
+	 	console.log(dt.getDay());
+		var endDate =new Date(
+			dt.getFullYear(),
+			dt.getMonth()  + 1,
+			0
+			).getDate();
+		
+		
+		var endDate = new Date(dt.getFullYear(),dt.getMonth()  + 1, 0).getDate();
+		var prevDate = new Date(dt.getFullYear(),dt.getMonth(), 0).getDate();
+		var today=new Date()
+		console.log(today);
+		var months =[
+			"January",
+			 "February",
+			  "March", 
+			  "April", 
+			  "May",
+			   "Jun",
+			    "July",
+			     "August",
+			      "September",
+			       "October",
+			        "November",
+			         "December"
+		];
+		document.getElementById("date_str").innerHTML = dt.toDateString();
+		document.getElementById("month").innerHTML= months[dt.getMonth()];
+		var cells ="";
+		for(x=day; x>0;x--){
+			cells+= "<div class='prev_date'>" + (prevDate - x + 1) + "</div>";
+		}
+		for(i=1; i<= endDate;i++){
+			if(i== today.getDate() && dt.getMonth()== today.getMonth()){
+				cells+="<div class='today'>" + i + "</div>";
+			}else{
+				cells+= "<div>" + i + "</div>";
+			}
+		}
+
+		document.getElementsByClassName("days")[0].innerHTML= cells;
+	}
+		function moveDate(para){
+			if(para == 'prev'){
+				dt.setMonth(dt.getMonth()-1);
+				RenderDate();
+			}else if(para=='next'){
+				dt.setMonth(dt.getMonth()+1);
+			}
+			RenderDate();
+		}
+	</script>
+</body>
+</html>
